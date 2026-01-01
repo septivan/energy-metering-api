@@ -1,0 +1,14 @@
+# .dockerignore
+.env
+.env.*
+.git
+.gitignore
+.vscode
+*.exe
+*.test
+bin/
+tmp/
+__debug_bin*
+README.md
+fly.toml
+.DS_Store
