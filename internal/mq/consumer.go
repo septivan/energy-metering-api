@@ -1,5 +1,9 @@
 package mq
 
+// RabbitMQ Consumer - DISABLED FOR NOW
+// Uncomment code below when RabbitMQ is needed
+
+/*
 import (
 	"context"
 	"time"
@@ -129,7 +133,6 @@ func (c *Consumer) Start(ctx context.Context) {
 					zap.String("routing_key", d.RoutingKey),
 					zap.Int("body_size", len(d.Body)),
 				)
-				// push raw body to hub
 				c.hub.Broadcast(d.Body)
 			}
 			c.logger.Warn("message channel closed")
@@ -151,3 +154,4 @@ func (c *Consumer) Start(ctx context.Context) {
 		}
 	}
 }
+*/

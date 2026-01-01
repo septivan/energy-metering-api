@@ -20,7 +20,8 @@ import (
 	"energy-metering-api/internal/dashboard"
 	"energy-metering-api/internal/db"
 	"energy-metering-api/internal/handler"
-	"energy-metering-api/internal/mq"
+
+	// "energy-metering-api/internal/mq" // Disabled: RabbitMQ not used
 	"energy-metering-api/internal/pdf"
 	"energy-metering-api/internal/repository"
 	"energy-metering-api/internal/service"
@@ -81,7 +82,7 @@ func main() {
 			
 			// Infrastructure
 			websocket.NewHub,
-			mq.NewConsumer,
+			// mq.NewConsumer, // Disabled: RabbitMQ not used
 			pdf.NewGenerator,
 			
 			// HTTP router
@@ -131,7 +132,7 @@ func startServer(
 	timeseriesHandler *timeseries.Handler,
 	anomaliesHandler *anomalies.Handler,
 	hub *websocket.Hub,
-	consumer *mq.Consumer,
+	// consumer *mq.Consumer, // Disabled: RabbitMQ not used
 	router *gin.Engine,
 ) {
 	// Register routes
@@ -143,13 +144,14 @@ func startServer(
 	}
 
 	// Create a context for long-running goroutines that will be cancelled on shutdown
-	ctx, cancel := context.WithCancel(context.Background())
+	// ctx, cancel := context.WithCancel(context.Background()) // Disabled: Not used without RabbitMQ
+	// _ = ctx // Disabled: RabbitMQ not used
 
 	lc.Append(fx.Hook{
 		OnStart: func(_ context.Context) error {
 			// Start background services
 			go hub.Run()
-			go consumer.Start(ctx)
+			// go consumer.Start(ctx) // Disabled: RabbitMQ not used
 			
 			// Start HTTP server
 			go func() {
@@ -165,7 +167,7 @@ func startServer(
 		},
 		OnStop: func(ctx context.Context) error {
 			logger.Info("stopping services...")
-			cancel() // Cancel the long-running context
+			// cancel() // Cancel the long-running context // Disabled: RabbitMQ not used
 			
 			// Shutdown HTTP server
 			if err := srv.Shutdown(ctx); err != nil {

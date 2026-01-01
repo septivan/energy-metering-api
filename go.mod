@@ -12,7 +12,6 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/jung-kurt/gofpdf v1.16.2
 	github.com/signintech/gopdf v0.22.0
-	github.com/streadway/amqp v1.1.0
 	go.uber.org/fx v1.22.1
 	go.uber.org/zap v1.27.0
 )

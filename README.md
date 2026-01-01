@@ -2,7 +2,7 @@
 
 Backend service untuk IoT energy metering dengan real-time monitoring dan billing calculations.
 
-**Stack:** Go 1.24+ • Gin • PostgreSQL/TimescaleDB • RabbitMQ • WebSocket
+**Stack:** Go 1.24+ • Gin • PostgreSQL/TimescaleDB • WebSocket
 
 ## Quick Start
 
@@ -23,8 +23,8 @@ go run ./cmd/server
 
 ```bash
 DATABASE_URL=postgres://user:pass@host:port/db?sslmode=require
-RABBITMQ_URL=amqp://user:pass@host:5672/
 SERVICE_PORT=8080
+# RABBITMQ_URL=amqp://user:pass@host:5672/ # Not used for now
 ```
 
 ## API Endpoints
@@ -55,7 +55,8 @@ docker run -p 8080:8080 --env-file .env energy-metering-api
 ```bash
 flyctl auth login
 flyctl launch --no-deploy
-flyctl secrets set DATABASE_URL="..." RABBITMQ_URL="..."
+flyctl secrets set DATABASE_URL="..."
+# flyctl secrets set RABBITMQ_URL="..." # Not used for now
 flyctl deploy
 ```
 
